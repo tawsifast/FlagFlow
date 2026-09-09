@@ -40,7 +40,7 @@ export function FeatureToggle({
         aria-label={`${enabled ? "Disable" : "Enable"} ${label}`}
         className={cn(
           "data-[state=checked]:bg-success",
-          size === "lg" && "h-7 w-12 [&_span]:size-6 [&_span]:data-[state=checked]:translate-x-5",
+          size === "lg" && "scale-125 origin-left",
         )}
       />
       <span

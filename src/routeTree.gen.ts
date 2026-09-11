@@ -10,9 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditLogsRouteImport } from './routes/audit-logs'
+import { Route as EnvironmentsRouteImport } from './routes/environments'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OverviewRouteImport } from './routes/overview'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as FlagsIndexRouteImport } from './routes/flags.index'
+import { Route as FlagsFlagIdRouteImport } from './routes/flags.$flagId'
+import { Route as FlagsNewRouteImport } from './routes/flags.new'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as ProjectsNewRouteImport } from './routes/projects.new'
@@ -20,6 +26,16 @@ import { Route as ProjectsNewRouteImport } from './routes/projects.new'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditLogsRoute = AuditLogsRouteImport.update({
+  id: '/audit-logs',
+  path: '/audit-logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnvironmentsRoute = EnvironmentsRouteImport.update({
+  id: '/environments',
+  path: '/environments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -32,9 +48,29 @@ const OverviewRoute = OverviewRouteImport.update({
   path: '/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlagsIndexRoute = FlagsIndexRouteImport.update({
+  id: '/flags/',
+  path: '/flags/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlagsFlagIdRoute = FlagsFlagIdRouteImport.update({
+  id: '/flags/$flagId',
+  path: '/flags/$flagId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlagsNewRoute = FlagsNewRouteImport.update({
+  id: '/flags/new',
+  path: '/flags/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
@@ -55,69 +91,111 @@ const ProjectsNewRoute = ProjectsNewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit-logs': typeof AuditLogsRoute
+  '/environments': typeof EnvironmentsRoute
   '/login': typeof LoginRoute
   '/overview': typeof OverviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/flags/$flagId': typeof FlagsFlagIdRoute
+  '/flags/new': typeof FlagsNewRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/projects/new': typeof ProjectsNewRoute
+  '/flags/': typeof FlagsIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit-logs': typeof AuditLogsRoute
+  '/environments': typeof EnvironmentsRoute
   '/login': typeof LoginRoute
   '/overview': typeof OverviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/flags/$flagId': typeof FlagsFlagIdRoute
+  '/flags/new': typeof FlagsNewRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/projects/new': typeof ProjectsNewRoute
+  '/flags': typeof FlagsIndexRoute
   '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit-logs': typeof AuditLogsRoute
+  '/environments': typeof EnvironmentsRoute
   '/login': typeof LoginRoute
   '/overview': typeof OverviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/flags/$flagId': typeof FlagsFlagIdRoute
+  '/flags/new': typeof FlagsNewRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/projects/new': typeof ProjectsNewRoute
+  '/flags/': typeof FlagsIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/audit-logs'
+    | '/environments'
     | '/login'
     | '/overview'
+    | '/settings'
     | '/signup'
+    | '/flags/$flagId'
+    | '/flags/new'
     | '/projects/$projectId'
     | '/projects/new'
+    | '/flags/'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/audit-logs'
+    | '/environments'
     | '/login'
     | '/overview'
+    | '/settings'
     | '/signup'
+    | '/flags/$flagId'
+    | '/flags/new'
     | '/projects/$projectId'
     | '/projects/new'
+    | '/flags'
     | '/projects'
   id:
     | '__root__'
     | '/'
+    | '/audit-logs'
+    | '/environments'
     | '/login'
     | '/overview'
+    | '/settings'
     | '/signup'
+    | '/flags/$flagId'
+    | '/flags/new'
     | '/projects/$projectId'
     | '/projects/new'
+    | '/flags/'
     | '/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditLogsRoute: typeof AuditLogsRoute
+  EnvironmentsRoute: typeof EnvironmentsRoute
   LoginRoute: typeof LoginRoute
   OverviewRoute: typeof OverviewRoute
+  SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
+  FlagsFlagIdRoute: typeof FlagsFlagIdRoute
+  FlagsNewRoute: typeof FlagsNewRoute
   ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
   ProjectsNewRoute: typeof ProjectsNewRoute
+  FlagsIndexRoute: typeof FlagsIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
@@ -128,6 +206,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit-logs': {
+      id: '/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/audit-logs'
+      preLoaderRoute: typeof AuditLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/environments': {
+      id: '/environments'
+      path: '/environments'
+      fullPath: '/environments'
+      preLoaderRoute: typeof EnvironmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -144,11 +236,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flags/': {
+      id: '/flags/'
+      path: '/flags'
+      fullPath: '/flags/'
+      preLoaderRoute: typeof FlagsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flags/$flagId': {
+      id: '/flags/$flagId'
+      path: '/flags/$flagId'
+      fullPath: '/flags/$flagId'
+      preLoaderRoute: typeof FlagsFlagIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flags/new': {
+      id: '/flags/new'
+      path: '/flags/new'
+      fullPath: '/flags/new'
+      preLoaderRoute: typeof FlagsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/': {
@@ -177,11 +297,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditLogsRoute: AuditLogsRoute,
+  EnvironmentsRoute: EnvironmentsRoute,
   LoginRoute: LoginRoute,
   OverviewRoute: OverviewRoute,
+  SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
+  FlagsFlagIdRoute: FlagsFlagIdRoute,
+  FlagsNewRoute: FlagsNewRoute,
   ProjectsProjectIdRoute: ProjectsProjectIdRoute,
   ProjectsNewRoute: ProjectsNewRoute,
+  FlagsIndexRoute: FlagsIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport

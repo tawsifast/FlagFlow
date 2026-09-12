@@ -1,4 +1,4 @@
-export function minutesAgo(minutes: number): string {
+export function timeAgo(iso: string): string {
   return new Date(Date.now() - minutes * 60_000).toISOString();
 }
 

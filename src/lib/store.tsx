@@ -150,7 +150,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         action: "flag_created",
         target: flag.name,
         environment: flag.environment,
-        projectName: projects.find((p) => p.id === flag.projectId)?.name,
+        projectName: projects.find((p) => p.id === flag.projectId)?.name ?? "",
       });
       return flag;
     },
@@ -170,7 +170,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         action: next ? "flag_enabled" : "flag_disabled",
         target: flag.name,
         environment: flag.environment,
-        projectName: projects.find((p) => p.id === flag.projectId)?.name,
+        projectName: projects.find((p) => p.id === flag.projectId)?.name ?? "",
       });
       toast.success(
         `${flag.name} is now ${next ? "enabled" : "disabled"} in ${ENVIRONMENT_LABELS[flag.environment]}.`,

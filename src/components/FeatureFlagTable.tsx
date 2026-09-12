@@ -94,7 +94,7 @@ export function FeatureFlagTable({ flags, onToggle, onDelete }: FeatureFlagTable
                       <ConfirmationDialog
                         trigger={
                           <DropdownMenuItem
-                            variant="destructive"
+                            className="text-destructive focus:text-destructive"
                             onSelect={(event) => event.preventDefault()}
                           >
                             <Trash2 className="size-4" aria-hidden="true" />

@@ -1,5 +1,8 @@
-import { minutesAgo } from "./format";
 import type { AuditLog, Environment, EnvironmentKey, FeatureFlag, Project } from "./types";
+
+// Fixed reference point so mock timestamps render identical text on server and client.
+const BASE = Date.parse("2026-09-12T09:00:00Z");
+const minutesAgo = (minutes: number) => new Date(BASE - minutes * 60_000).toISOString();
 
 export const ENVIRONMENT_KEYS: EnvironmentKey[] = ["development", "staging", "production"];
 

@@ -35,7 +35,7 @@ interface StoreValue {
   flags: FeatureFlag[];
   auditLogs: AuditLog[];
   login: (email: string) => void;
-  signup: (name: string, email: string) => void;
+  signup: (name: string, email: string, imageUrl?: string) => void;
   logout: () => void;
   updateProfile: (name: string, email: string) => void;
   createProject: (input: NewProjectInput) => Project;
@@ -83,8 +83,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setUser({ id: "u1", name: "Tawsif Islam", email });
   }, []);
 
-  const signup = useCallback((name: string, email: string) => {
-    setUser({ id: uid(), name, email });
+  const signup = useCallback((name: string, email: string, imageUrl?: string) => {
+    setUser({ id: uid(), name, email, imageUrl });
   }, []);
 
   const logout = useCallback(() => setUser(null), []);

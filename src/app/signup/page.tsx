@@ -1,5 +1,6 @@
 "use client";
 
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,9 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({});
+  const [imageUrl, setImageUrl] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; imageUrl?: string }>({});
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -25,9 +28,10 @@ export default function SignupPage() {
     if (name.trim().length < 2) next.name = "Enter your full name.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Enter a valid email address.";
     if (password.length < 8) next.password = "Use at least 8 characters.";
+    if (imageUrl && !/^https?:\/\//.test(imageUrl)) next.imageUrl = "Enter a valid URL starting with http or https.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
-    signup(name.trim(), email);
+    signup(name.trim(), email, imageUrl || undefined);
     router.push("/dashboard");
   }
 
@@ -74,15 +78,43 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="imageUrl">Profile image URL (optional)</Label>
               <Input
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                value={password}
-                aria-invalid={Boolean(errors.password)}
-                onChange={(event) => setPassword(event.target.value)}
+                id="imageUrl"
+                type="url"
+                placeholder=""
+                autoComplete="url"
+                value={imageUrl}
+                aria-invalid={Boolean(errors.imageUrl)}
+                onChange={(event) => setImageUrl(event.target.value)}
               />
+              {errors.imageUrl && <p className="text-xs text-destructive">{errors.imageUrl}</p>}
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  className="pr-10"
+                  value={password}
+                  aria-invalid={Boolean(errors.password)}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                >
+                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                </Button>
+              </div>
               {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
             </div>
 

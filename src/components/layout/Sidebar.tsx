@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ChevronsUpDown,
@@ -83,9 +84,12 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <DropdownMenu>
           <DropdownMenuTrigger className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors hover:bg-sidebar-accent">
             {user?.imageUrl ? (
-              <img
+              <Image
                 src={user.imageUrl}
                 alt=""
+                width={36}
+                height={36}
+                unoptimized
                 className="size-9 shrink-0 rounded-full object-cover"
               />
             ) : (
